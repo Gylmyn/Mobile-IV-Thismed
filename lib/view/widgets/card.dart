@@ -1,44 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
+import 'package:thismed_app/model/user_model.dart';
 import 'package:thismed_app/view/themes/themes.dart';
 
 class CsCard extends StatelessWidget {
   const CsCard({
     super.key,
-    required this.id,
-    required this.username,
-    required this.contentTittle,
-    required this.comment,
-    required this.avatar,
-    required this.like,
-    required this.dislike,
-    required this.createdAt,
-    required this.image,
+    required this.props,
   });
-
-  final String id;
-  final String username;
-  final String contentTittle;
-  final String avatar;
-  final String image;
-  final String like;
-  final String dislike;
-  final String comment;
-  final String createdAt;
+  final User props;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(vertical: 24, horizontal: 40),
+      padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 40),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  print('Avatar Clicked');
+                },
                 child: Container(
                   height: 40,
                   width: 40,
@@ -46,18 +31,18 @@ class CsCard extends StatelessWidget {
                       shape: BoxShape.circle,
                       color: primaryColor,
                       image: DecorationImage(
-                          fit: BoxFit.fill, image: AssetImage(avatar))),
+                          fit: BoxFit.fill, image: AssetImage(props.avatar))),
                 ),
               ),
               const Gap(8),
               Text(
-                username,
+                props.username,
                 style: primaryTextStyle.copyWith(
                     fontSize: 16, fontWeight: FontWeight.w500),
               ),
               const Spacer(),
               Text(
-                createdAt,
+                props.createdAt,
                 style: greyTextStyle,
               ),
             ],
@@ -70,7 +55,7 @@ class CsCard extends StatelessWidget {
           ),
           const Gap(12),
           Text(
-            contentTittle,
+            props.contentTittle,
             style: greyTextStyle.copyWith(
                 fontWeight: FontWeight.bold, fontSize: 18),
           ),
@@ -86,18 +71,16 @@ class CsCard extends StatelessWidget {
                 // margin: EdgeInsets.all(16),
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        fit: BoxFit.contain, image: AssetImage(image))),
+                        fit: BoxFit.contain, image: AssetImage(props.image))),
               ),
             ),
           ),
-          const Gap(24),
+          const Gap(12),
           Row(
             children: [
-              _buildAction(FontAwesomeIcons.thumbsUp, like),
-              const Gap(8),
-              _buildAction(FontAwesomeIcons.thumbsDown, dislike),
-              const Gap(8),
-              _buildAction(FontAwesomeIcons.comment, comment),
+              _buildAction(FontAwesomeIcons.thumbsUp, props.like, () {}),
+              _buildAction(FontAwesomeIcons.thumbsDown, props.dislike, () {}),
+              _buildAction(FontAwesomeIcons.comment, props.comment, () {}),
             ],
           ),
           const Gap(12),
@@ -109,18 +92,17 @@ class CsCard extends StatelessWidget {
     );
   }
 
-  Widget _buildAction(IconData icon, String count) {
+  Widget _buildAction(IconData icon, int count, VoidCallback onPressed) {
     return Row(
       children: [
-        const Gap(14),
-        Icon(
-          icon,
+        IconButton(
+          onPressed: onPressed,
+          icon: Icon(icon),
           color: primaryTextColor,
-          fill: 1,
         ),
-        const Gap(6),
+        const Gap(4),
         Text(
-          count,
+          count.toString(),
           style:
               greyTextStyle.copyWith(fontSize: 18, fontWeight: FontWeight.w500),
         )

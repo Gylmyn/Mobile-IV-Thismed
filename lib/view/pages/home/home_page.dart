@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:thismed_app/controllers/content_ctrl.dart';
+import 'package:thismed_app/model/user_model.dart';
 import 'package:thismed_app/view/themes/themes.dart';
 import 'package:thismed_app/view/widgets/card.dart';
 
@@ -25,39 +26,22 @@ class HomePage extends StatelessWidget {
 }
 
 Widget _buildBody(ContentController items) {
+  RxList<User> sortedList = RxList.from(items.listContent);
+  sortedList.sort((a, b) => b.like.compareTo(a.like));
   return TabBarView(
     children: <Widget>[
       Obx(() => ListView.builder(
             itemCount: items.listContent.length,
             itemBuilder: (context, index) {
               final item = items.listContent[index];
-              return CsCard(
-                  id: item.id,
-                  username: item.username,
-                  contentTittle: item.contentTittle,
-                  comment: item.comment,
-                  avatar: item.avatar,
-                  like: item.like,
-                  dislike: item.dislike,
-                  createdAt: item.createdAt,
-                  image: item.image);
+              return CsCard(props: item);
             },
           )),
       Obx(() => ListView.builder(
-            itemCount: items.listContent.length,
+            itemCount: sortedList.length,
             itemBuilder: (context, index) {
-              final item =
-                  items.listContent[items.listContent.length - index - 1];
-              return CsCard(
-                  id: item.id,
-                  username: item.username,
-                  contentTittle: item.contentTittle,
-                  comment: item.comment,
-                  avatar: item.avatar,
-                  like: item.like,
-                  dislike: item.dislike,
-                  createdAt: item.createdAt,
-                  image: item.image);
+              final item = sortedList[index];
+              return CsCard(props: item);
             },
           )),
     ],

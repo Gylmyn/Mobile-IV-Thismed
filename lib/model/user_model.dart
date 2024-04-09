@@ -1,14 +1,14 @@
 // ignore_for_file: file_names
 
 class User {
-  String id;
+  int id;
   String username;
   String contentTittle;
   String avatar;
   String image;
-  String like;
-  String dislike;
-  String comment;
+  int like;
+  int dislike;
+  int comment;
   String createdAt;
 
   User({

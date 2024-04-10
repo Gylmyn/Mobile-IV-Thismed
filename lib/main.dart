@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:thismed_app/routes/routes_name.dart';
-import 'package:thismed_app/routes/routes_page.dart';
+import 'package:thismed_app/app/view/layout/routes/routes_name.dart';
+import 'package:thismed_app/app/view/layout/routes/routes_page.dart';
 
 void main() {
   runApp(const Thismed());

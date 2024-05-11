@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+// import 'package:go_router/go_router.dart';
 import 'package:thismed_app/app/view/pages/home/home_page.dart';
 import 'package:thismed_app/app/view/pages/post/post_page.dart';
-import 'package:thismed_app/app/view/pages/profile/profile_page.dart';
 import 'package:thismed_app/app/view/pages/search/search_page.dart';
 
 class BotNavController extends GetxController {
   final RxInt index = 0.obs;
   final PageController pageController = PageController();
 
+  // final GoRouter pages = GoRouter(
+  //   routes: [
+  //     GoRoute(
+  //       path: '/',
+
+  //     ),
+  //     GoRoute(
+  //       path: '/post',
+
+  //     ),
+  //     GoRoute(
+  //       path: '/search',
+  //     ),
+  //   ],
+  // );
+
   final List<Widget> pages = [
-    HomePage(),
-    SearchPage(),
-    PostPage(),
-    ProfilePage()
+    const HomePage(),
+    const PostPage(),
+    const SearchPage(),
   ];
 
   final List navs = [
@@ -23,19 +38,14 @@ class BotNavController extends GetxController {
       'label': 'Home',
     },
     {
-      'icon_on': Icons.search,
-      'icon_off': Icons.search_outlined,
-      'label': 'Search',
-    },
-    {
       'icon_on': Icons.add_box,
       'icon_off': Icons.add_box_outlined,
       'label': 'New Post',
     },
     {
-      'icon_on': Icons.account_circle,
-      'icon_off': Icons.account_circle_outlined,
-      'label': 'Profile',
+      'icon_on': Icons.search,
+      'icon_off': Icons.search_outlined,
+      'label': 'Search',
     },
   ];
 }

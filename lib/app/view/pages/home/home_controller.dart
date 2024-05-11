@@ -1,47 +1,32 @@
 import 'package:get/get.dart';
-import 'package:thismed_app/app/data/model/user_model.dart';
+import 'package:thismed_app/app/data/model/models.dart';
+import 'package:thismed_app/app/data/services/services.dart';
 
 class HomeContentController extends GetxController {
-  RxList<User> listContent = <User>[].obs;
+  RxList<Users> data = <Users>[].obs;
+  RxList<Users> sortDataByLikes = <Users>[].obs;
 
   @override
   void onInit() {
-    listContent.addAll([
-      {
-        "id": 1,
-        "username": "cihuyyy24434",
-        "createdAt": DateTime.now().subtract(const Duration(hours: 1)),
-        "image": "assets/images/tree.png",
-        "avatar": "assets/images/logo.png",
-        "like": 24,
-        "dislike": 3,
-        "comment": 8,
-        "contentTittle": "Pohon Beringin"
-      },
-      {
-        "id": 2,
-        "username": "alaeee123",
-        "createdAt": DateTime.now().subtract(const Duration(days: 1)),
-        "image": "assets/images/tree.png",
-        "avatar": "assets/images/logo.png",
-        "like": 98,
-        "dislike": 20,
-        "comment": 60,
-        "contentTittle": "Pohon Beringin"
-      },
-      {
-        "id": 3,
-        "username": "behhh123",
-        "createdAt": DateTime.now().subtract(const Duration(days: 2)),
-        "image": "assets/images/tree.png",
-        "avatar": "assets/images/logo.png",
-        "like": 198,
-        "dislike": 40,
-        "comment": 80,
-        "contentTittle": "Pohon Beringin"
-      },
-    ].map((json) => User.fromJson(json)).toList());
-
+    fetchData();
     super.onInit();
+  }
+
+  Future<void> fetchData() async {
+    try {
+      var response = await ApiCall.fetchData();
+      data.value = response;
+
+      // Sorting data based on likes
+      sortDataByLikes.assignAll(response);
+      sortDataByLikes.sort((a, b) => b.posts!
+          .map((post) => post.likes)
+          .reduce((value, element) => value + element)
+          .compareTo(a.posts!
+              .map((post) => post.likes)
+              .reduce((value, element) => value + element)));
+    } catch (e) {
+      print(e);
+    }
   }
 }

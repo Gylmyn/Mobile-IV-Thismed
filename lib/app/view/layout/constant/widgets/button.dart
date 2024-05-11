@@ -23,8 +23,11 @@ class CsButton extends StatelessWidget {
     return textOnly
         ? TextButton(
             onPressed: onPressed,
-            child: Text(title,
-                style: primaryTextStyle.copyWith(fontWeight: FontWeight.w500)),
+            child: Center(
+              child: Text(title,
+                  style:
+                      primaryTextStyle.copyWith(fontWeight: FontWeight.w500)),
+            ),
           )
         : SizedBox(
             width: double.infinity,

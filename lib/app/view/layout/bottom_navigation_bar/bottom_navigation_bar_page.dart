@@ -16,35 +16,30 @@ class BottomNavBar extends GetView<BotNavController> {
         },
       ),
       bottomNavigationBar: Obx(
-        () => Container(
-          decoration: BoxDecoration(
-              color: bgColor, borderRadius: BorderRadius.circular(30)),
-          height: 80,
-          child: BottomNavigationBar(
-            iconSize: 34,
-            type: BottomNavigationBarType.fixed,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            selectedItemColor: primaryColor,
-            unselectedItemColor: primaryTextColor,
-            backgroundColor: bgColor,
-            items: List.generate(controller.navs.length, (index) {
-              var nav = controller.navs[index];
-              return BottomNavigationBarItem(
-                icon: Icon(nav['icon_off']),
-                label: '',
-                activeIcon: Icon(nav['icon_on']),
-              );
-            }),
-            currentIndex: controller.index.value,
-            onTap: (index) {
-              controller.pageController.animateToPage(
-                index,
-                duration: const Duration(milliseconds: 500),
-                curve: Curves.easeInOut,
-              );
-            },
-          ),
+        () => BottomNavigationBar(
+          iconSize: 34,
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          selectedItemColor: primaryColor,
+          unselectedItemColor: primaryTextColor,
+          backgroundColor: bgColor,
+          items: List.generate(controller.navs.length, (index) {
+            var nav = controller.navs[index];
+            return BottomNavigationBarItem(
+              icon: Icon(nav['icon_off']),
+              label: '',
+              activeIcon: Icon(nav['icon_on']),
+            );
+          }),
+          currentIndex: controller.index.value,
+          onTap: (index) {
+            controller.pageController.animateToPage(
+              index,
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.easeInOut,
+            );
+          },
         ),
       ),
     );

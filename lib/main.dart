@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
 import 'package:thismed_app/app/view/layout/routes/routes_name.dart';
 import 'package:thismed_app/app/view/layout/routes/routes_page.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const Thismed());
 }
 
@@ -16,6 +18,6 @@ class Thismed extends StatelessWidget {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         getPages: RoutePage.ROUTES,
-        initialRoute: RouteName.BOTNAVBAR);
+        initialRoute: RouteName.SPLASH);
   }
 }

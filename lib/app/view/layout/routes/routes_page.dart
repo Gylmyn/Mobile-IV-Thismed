@@ -13,14 +13,15 @@ import 'package:thismed_app/app/view/pages/post/post_page.dart';
 import 'package:thismed_app/app/view/pages/profile/profile_page.dart';
 import 'package:thismed_app/app/view/layout/routes/routes_name.dart';
 import 'package:thismed_app/app/view/pages/search/search_page.dart';
+import 'package:thismed_app/app/view/pages/splash/splash_bindings.dart';
 import 'package:thismed_app/app/view/pages/splash/splash_page.dart';
 
 class RoutePage {
   static final ROUTES = [
     GetPage(
-      name: RouteName.SPLASH,
-      page: () => const SplashPage(),
-    ),
+        name: RouteName.SPLASH,
+        page: () => const SplashPage(),
+        binding: SplashBindings()),
     GetPage(
         name: RouteName.SIGNIN,
         page: () => const SignInPage(),

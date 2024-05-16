@@ -3,7 +3,7 @@ class Users {
   final String username;
   final String email;
   final String password;
-  final String googleUserId;
+  final String? googleUserId;
   final String avatar;
   final DateTime createdAt;
   final DateTime updatedAt;
@@ -14,7 +14,7 @@ class Users {
     required this.username,
     required this.email,
     required this.password,
-    required this.googleUserId,
+    this.googleUserId,
     required this.avatar,
     required this.createdAt,
     required this.updatedAt,

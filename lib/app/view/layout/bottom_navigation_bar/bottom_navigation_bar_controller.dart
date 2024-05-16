@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 // import 'package:go_router/go_router.dart';
@@ -33,18 +34,18 @@ class BotNavController extends GetxController {
 
   final List navs = [
     {
-      'icon_on': Icons.home,
-      'icon_off': Icons.home_outlined,
+      'icon_on': CupertinoIcons.house_fill,
+      'icon_off': CupertinoIcons.house,
       'label': 'Home',
     },
     {
-      'icon_on': Icons.add_box,
-      'icon_off': Icons.add_box_outlined,
+      'icon_on': CupertinoIcons.add_circled_solid,
+      'icon_off': CupertinoIcons.add_circled,
       'label': 'New Post',
     },
     {
-      'icon_on': Icons.search,
-      'icon_off': Icons.search_outlined,
+      'icon_on': CupertinoIcons.search_circle_fill,
+      'icon_off': CupertinoIcons.search_circle,
       'label': 'Search',
     },
   ];

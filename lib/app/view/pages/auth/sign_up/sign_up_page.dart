@@ -20,52 +20,96 @@ class SignUpPage extends GetView<SignUpController> {
         padding: const EdgeInsets.symmetric(horizontal: 40),
         child: Form(
           key: key,
-          child: ListView(
-            physics: const NeverScrollableScrollPhysics(),
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Gap(100),
-              Text(
-                'Sign Up',
-                style: greyTextStyle.copyWith(
-                    fontWeight: FontWeight.bold, fontSize: 64),
-              ),
-              const Gap(30),
-              CsFormField(
-                placeholder: 'Username',
-                controller: controller.usernameC,
-                icon: FontAwesomeIcons.user,
-              ),
-              const Gap(20),
-              CsFormField(
-                  placeholder: 'Email',
+          child: SingleChildScrollView(
+            child: Column(
+              // physics: const NeverScrollableScrollPhysics(),
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Gap(100),
+                Text(
+                  'Sign Up',
+                  style: greyTextStyle.copyWith(
+                      fontWeight: FontWeight.bold, fontSize: 64),
+                ),
+                const Gap(30),
+                Text(
+                  'Username',
+                  style: greyTextStyle.copyWith(
+                      fontWeight: FontWeight.w600, fontSize: 16),
+                ),
+                const Gap(10),
+                CsFormField(
+                  placeholder: 'Enter Your Username',
+                  textValidator: 'Username cannot be empty',
+                  controller: controller.usernameC,
+                ),
+                const Gap(20),
+                Text(
+                  'Email',
+                  style: greyTextStyle.copyWith(
+                      fontWeight: FontWeight.w600, fontSize: 16),
+                ),
+                const Gap(10),
+                CsFormField(
+                  placeholder: 'Enter Your Email',
+                  textValidator: 'Email cannot be empty',
                   controller: controller.emailC,
-                  icon: Icons.mail_outlined),
-              const Gap(20),
-              CsFormField(
-                placeholder: 'Password',
-                controller: controller.passwordC,
-                icon: FontAwesomeIcons.lock,
-              ),
-              const Gap(38),
-              CsButton(
-                title: 'Sign Up',
-                bgColor: primaryColor,
-                onPressed: () => controller.registerUser(),
-              ),
-              const Gap(24),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Don`t Have an Account ? '),
-                  CsButton(
-                    title: 'Sign In',
-                    textOnly: true,
-                    onPressed: () => Get.back(),
-                  )
-                ],
-              )
-            ],
+                ),
+                const Gap(20),
+                Text(
+                  'Password',
+                  style: greyTextStyle.copyWith(
+                      fontWeight: FontWeight.w600, fontSize: 16),
+                ),
+                const Gap(10),
+                CsFormField(
+                  placeholder: 'Enter Your Password',
+                  textValidator: 'Password cannot be empty',
+                  controller: controller.passwordC,
+                ),
+                const Gap(20),
+                Text(
+                  'Confirm Password',
+                  style: greyTextStyle.copyWith(
+                      fontWeight: FontWeight.w600, fontSize: 16),
+                ),
+                const Gap(10),
+                CsFormField(
+                  placeholder: 'Confirm Your Password',
+                  textValidator: 'Password cannot be empty',
+                  controller: controller.confirmPasswordC,
+                ),
+                const Gap(38),
+                CsButton(
+                  title: 'Sign Up',
+                  bgColor: primaryColor,
+                  textStyle: whiteTextStyle.copyWith(
+                      fontWeight: FontWeight.w600, fontSize: 20),
+                  onPressed: () {
+                    if (key.currentState!.validate()) {
+                      // controller.checkPassword();
+                      controller.registerUser();
+                    }
+                  },
+                ),
+                const Gap(24),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Already Have an Account ? ',
+                        style: greyTextStyle.copyWith(
+                            fontWeight: FontWeight.w600, fontSize: 16)),
+                    CsButton(
+                      title: 'Sign In',
+                      textStyle: primaryTextStyle.copyWith(
+                          fontWeight: FontWeight.w600, fontSize: 16),
+                      textOnly: true,
+                      onPressed: () => Get.back(),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),

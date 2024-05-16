@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "638457051369",
+    "project_id": "thismed-app",
+    "storage_bucket": "thismed-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638457051369:android:a96af3ffeda623ae671878",
+        "android_client_info": {
+          "package_name": "com.example.thismed_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxsf-gSxczB8fWoI27JhiyfIMMoqRI9ZU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

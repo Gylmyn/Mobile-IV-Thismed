@@ -1,23 +1,27 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:thismed_app/app/view/layout/constant/themes/themes.dart';
 import 'package:thismed_app/app/view/layout/constant/widgets/formfield.dart';
+import 'package:thismed_app/app/view/pages/post/post_controller.dart';
 
 class PostPage extends StatelessWidget {
   const PostPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final PostController controller = Get.put(PostController());
     return Scaffold(
       appBar: AppBar(
         title: _buildAppBar(),
       ),
-      body: _buildBody(),
+      body: _buildBody(controller),
     );
   }
 
-  Widget _buildBody() {
+  Widget _buildBody(PostController controller) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 25),
       child: Column(
@@ -33,7 +37,6 @@ class PostPage extends StatelessWidget {
           const Gap(12),
           const CsFormField(
             fullBorder: true,
-            icon: CupertinoIcons.pencil_slash,
             placeholder: 'Masukkan judul postingan........',
           ),
           const Gap(25),
@@ -43,12 +46,15 @@ class PostPage extends StatelessWidget {
                 fontSize: 20, fontWeight: FontWeight.bold),
           ),
           const Gap(12),
-          Container(
-            width: double.infinity,
-            height: 300,
-            decoration: BoxDecoration(
-                border: Border.all(color: primaryTextColor),
-                borderRadius: BorderRadius.circular(12)),
+          GestureDetector(
+            onTap: () => controller.pickImage(),
+            child: Container(
+              width: double.infinity,
+              height: 300,
+              decoration: BoxDecoration(
+                  border: Border.all(color: primaryTextColor),
+                  borderRadius: BorderRadius.circular(12)),
+            ),
           )
         ],
       ),

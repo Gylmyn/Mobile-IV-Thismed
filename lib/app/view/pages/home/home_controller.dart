@@ -12,7 +12,7 @@ class HomeContentController extends GetxController {
     super.onInit();
   }
 
-  Future<void> fetchData() async {
+  Future<List<Users>> fetchData() async {
     try {
       var response = await ApiCall.fetchData();
       data.value = response;
@@ -25,8 +25,10 @@ class HomeContentController extends GetxController {
           .compareTo(a.posts!
               .map((post) => post.likes)
               .reduce((value, element) => value + element)));
+      return response;
     } catch (e) {
       print(e);
+      return [];
     }
   }
 }

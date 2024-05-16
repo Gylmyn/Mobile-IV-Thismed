@@ -19,15 +19,19 @@ class SignInController extends GetxController {
 
   void loginUser() async {
     try {
-      await ApiCall.login(emailC.text, passwordC.text);
+      if (emailC.text.isEmpty && passwordC.text.isEmpty) {
+        Get.snackbar('error', 'Please fill in the form');
+      } else {
+        await ApiCall.login(emailC.text, passwordC.text);
+        Get.snackbar(
+          'Success',
+          'Login successfully, Hallo',
+          backgroundColor: successColor,
+          colorText: primaryTextColor,
+        );
+        Get.offAllNamed(RouteName.BOTNAVBAR);
+      }
       // Menampilkan pesan sukses menggunakan snackbar jika berhasil
-      Get.snackbar(
-        'Success',
-        'Login successfully, Hallo',
-        backgroundColor: successColor,
-        colorText: primaryTextColor,
-      );
-      Get.offAllNamed(RouteName.BOTNAVBAR);
     } catch (error) {
       // Menampilkan pesan error menggunakan snackbar jika gagal
       Get.snackbar(

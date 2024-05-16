@@ -17,63 +17,90 @@ class SignInPage extends GetView<SignInController> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
+          padding: const EdgeInsets.symmetric(horizontal: 36),
           child: Form(
             key: key,
-            child: ListView(
-              physics: const NeverScrollableScrollPhysics(),
-              // crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Gap(140),
-                Text(
-                  'Sign In',
-                  style: greyTextStyle.copyWith(
-                      fontWeight: FontWeight.bold, fontSize: 64),
-                ),
-                const Gap(30),
-                CsFormField(
-                  placeholder: 'Gmail',
-                  controller: controller.emailC,
-                  icon: Icons.mail_outlined,
-                ),
-                const Gap(20),
-                CsFormField(
-                  placeholder: 'Password',
-                  controller: controller.passwordC,
-                  icon: FontAwesomeIcons.key,
-                ),
-                const Gap(38),
-                CsButton(
-                  title: 'Sign In',
-                  bgColor: primaryColor,
-                  onPressed: () => controller.loginUser(),
-                ),
-                const Gap(24),
-                const Center(
-                  child: Text(
-                    'Or',
+            child: SingleChildScrollView(
+              child: Column(
+                // physics: const NeverScrollableScrollPhysics(),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Gap(140),
+                  Text(
+                    'Sign In',
+                    style: greyTextStyle.copyWith(
+                        fontWeight: FontWeight.bold, fontSize: 64),
                   ),
-                ),
-                const Gap(18),
-                CsButton(
-                  useIcon: true,
-                  icon: FontAwesomeIcons.google,
-                  title: 'Google',
-                  bgColor: primaryColor,
-                  onPressed: () {},
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('Don`t Have an Account ? '),
-                    CsButton(
-                      title: 'Sign Up',
-                      textOnly: true,
-                      onPressed: () => Get.toNamed(RouteName.SIGNUP),
-                    )
-                  ],
-                )
-              ],
+                  const Gap(30),
+                  Text(
+                    'Email',
+                    style: greyTextStyle.copyWith(
+                        fontWeight: FontWeight.w600, fontSize: 16),
+                  ),
+                  const Gap(10),
+                  CsFormField(
+                    placeholder: 'Enter Your Email',
+                    textValidator: 'Email cannot be empty',
+                    controller: controller.emailC,
+                  ),
+                  const Gap(20),
+                  Text(
+                    'Password',
+                    style: greyTextStyle.copyWith(
+                        fontWeight: FontWeight.w600, fontSize: 16),
+                  ),
+                  const Gap(10),
+                  CsFormField(
+                    placeholder: 'Enter Your Password',
+                    textValidator: 'Password cannot be empty',
+                    controller: controller.passwordC,
+                  ),
+                  const Gap(38),
+                  CsButton(
+                    title: 'Sign In',
+                    bgColor: primaryColor,
+                    textStyle: whiteTextStyle.copyWith(
+                        fontWeight: FontWeight.w600, fontSize: 20),
+                    onPressed: () {
+                      if (key.currentState!.validate()) {
+                        controller.loginUser();
+                      }
+                    },
+                  ),
+                  const Gap(24),
+                  const Center(
+                    child: Text(
+                      'Or',
+                    ),
+                  ),
+                  const Gap(18),
+                  CsButton(
+                    title: 'Google',
+                    useBorder: true,
+                    useIcon: true,
+                    icon: 'assets/images/google-logo.png',
+                    borderColor: primaryColor,
+                    textStyle: primaryTextStyle.copyWith(
+                        fontWeight: FontWeight.w600, fontSize: 20),
+                  ),
+                  const Gap(18),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text('Don`t Have an Account ? ',
+                          style: greyTextStyle.copyWith(
+                              fontWeight: FontWeight.w600, fontSize: 16)),
+                      CsButton(
+                        title: 'Sign Up',
+                        textStyle: primaryTextStyle.copyWith(
+                            fontWeight: FontWeight.w600, fontSize: 16),
+                        textOnly: true,
+                        onPressed: () => Get.toNamed(RouteName.SIGNUP),
+                      ),
+                    ],
+                  )
+                ],
+              ),
             ),
           ),
         ),

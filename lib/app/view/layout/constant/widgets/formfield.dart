@@ -6,35 +6,35 @@ class CsFormField extends StatelessWidget {
   const CsFormField(
       {super.key,
       this.controller,
-      this.icon,
       required this.placeholder,
+      this.textValidator,
       this.fullBorder = false});
 
   final TextEditingController? controller;
   final String placeholder;
-  final IconData? icon;
   final bool? fullBorder;
+  final String? textValidator;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+        validator: (value) => value == '' ? textValidator! : null,
         controller: controller,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.only(top: 12),
-          floatingLabelBehavior: fullBorder == true
-              ? FloatingLabelBehavior.never
-              : FloatingLabelBehavior.auto,
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 14, vertical: 16),
+          filled: true,
+          fillColor: fullBorder == true
+              ? Colors.transparent
+              : secondaryTextColor.withAlpha(40),
+          floatingLabelBehavior: FloatingLabelBehavior.never,
           border: fullBorder == true
               ? const OutlineInputBorder(
                   gapPadding: 0.0,
                   borderRadius: BorderRadius.all(Radius.circular(24)))
-              : const UnderlineInputBorder(),
+              : const OutlineInputBorder(borderSide: BorderSide.none),
           labelText: placeholder,
           labelStyle: grey2TextStyle,
-          prefixIcon: Icon(
-            icon,
-            size: 20,
-          ),
         ));
   }
 }

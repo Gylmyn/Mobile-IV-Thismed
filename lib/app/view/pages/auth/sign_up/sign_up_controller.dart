@@ -8,6 +8,7 @@ class SignUpController extends GetxController {
   final TextEditingController usernameC = TextEditingController();
   final TextEditingController emailC = TextEditingController();
   final TextEditingController passwordC = TextEditingController();
+  final TextEditingController confirmPasswordC = TextEditingController();
 
   @override
   void onClose() {
@@ -17,20 +18,31 @@ class SignUpController extends GetxController {
     emailC.dispose();
     passwordC.clear();
     passwordC.dispose();
+    confirmPasswordC.clear();
+    confirmPasswordC.dispose();
     super.onClose();
   }
 
-  void registerUser() async {
+  Future<void> registerUser() async {
     try {
-      await ApiCall.register(usernameC.text, emailC.text, passwordC.text);
+      if (passwordC.text.isNotEmpty &&
+          confirmPasswordC.text.isNotEmpty &&
+          emailC.text.isNotEmpty &&
+          usernameC.text.isNotEmpty) {
+        if (passwordC.text != confirmPasswordC.text) {
+          Get.snackbar('Error', 'Password does not match');
+        } else {
+          await ApiCall.register(usernameC.text, emailC.text, passwordC.text);
+          Get.snackbar(
+            'Success',
+            'Account created successfully',
+            backgroundColor: successColor,
+            colorText: primaryTextColor,
+          );
+          Get.offNamed(RouteName.SIGNIN);
+        }
+      }
       // Menampilkan pesan sukses menggunakan snackbar jika berhasil
-      Get.snackbar(
-        'Success',
-        'Account created successfully',
-        backgroundColor: successColor,
-        colorText: primaryTextColor,
-      );
-      Get.offNamed(RouteName.SIGNIN);
     } catch (error) {
       // Menampilkan pesan error menggunakan snackbar jika gagal
       Get.snackbar(

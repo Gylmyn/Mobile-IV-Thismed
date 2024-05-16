@@ -9,16 +9,16 @@ class SplashPage extends GetView<SplashController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: primaryColor,
+        backgroundColor: bgColor,
         body: FutureBuilder(
           future: controller.splashC(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return Center(
                 child: Image.asset(
-                  'assets/images/logo.png',
-                  width: 165,
-                  height: 165,
+                  'assets/images/main-logo.png',
+                  width: 400,
+                  height: 400,
                   fit: BoxFit.cover,
                 ),
               );

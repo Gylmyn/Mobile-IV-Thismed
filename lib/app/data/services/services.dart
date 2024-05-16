@@ -40,6 +40,7 @@ class ApiCall {
       print('Message: ${responseData['message']}');
     } else {
       print('Failed to create account. Error: ${response.reasonPhrase}');
+      throw Exception('Failed to login. Error: ${response.reasonPhrase}');
     }
   }
 
@@ -61,6 +62,7 @@ class ApiCall {
       return responseData;
     } else {
       print('Failed to create account. Error: ${response.reasonPhrase}');
+      throw Exception('Failed to login. Error: ${response.reasonPhrase}');
     }
   }
 }

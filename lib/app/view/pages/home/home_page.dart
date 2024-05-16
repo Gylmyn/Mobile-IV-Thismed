@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:gap/gap.dart';
-import 'package:get/get.dart';
 import 'package:thismed_app/app/data/model/models.dart';
 import 'package:thismed_app/app/view/layout/routes/routes_name.dart';
 import 'package:thismed_app/app/view/pages/home/home_controller.dart';
-// import 'package:thismed_app/app/data/model/user_model.dart';
 import 'package:thismed_app/app/view/layout/constant/themes/themes.dart';
 import 'package:thismed_app/app/view/layout/constant/widgets/card.dart';
+import 'package:gap/gap.dart';
+import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -16,10 +15,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final HomeContentController controller = Get.put(HomeContentController());
     //alldata
-    final RxList<Users> allData = controller.data;
+    final RxList<Users> getAllData = controller.data;
     //sorted by likes
-    final RxList<Users> sortDataByLikes = controller.sortDataByLikes;
-    sortDataByLikes.sort((a, b) => b.posts!
+    final RxList<Users> getDataByLikes = controller.sortDataByLikes;
+    getDataByLikes.sort((a, b) => b.posts!
         .map((post) => post.likes)
         .reduce((value, element) => value + element)
         .compareTo(a.posts!
@@ -31,13 +30,13 @@ class HomePage extends StatelessWidget {
       child: Scaffold(
         drawer: _buildDrawer(),
         appBar: _buildAppBar(),
-        body: _buildBody(allData, sortDataByLikes, controller),
+        body: _buildBody(getAllData, getDataByLikes, controller),
       ),
     );
   }
 }
 
-Widget _buildBody(RxList<Users> allData, RxList<Users> sortDataByLikes,
+Widget _buildBody(RxList<Users> getAllData, RxList<Users> getDataByLikes,
     HomeContentController controller) {
   return TabBarView(
     children: <Widget>[
@@ -49,13 +48,19 @@ Widget _buildBody(RxList<Users> allData, RxList<Users> sortDataByLikes,
               child: CircularProgressIndicator(),
             );
           } else {
-            return Obx(() => ListView.builder(
-                  itemCount: allData.length,
-                  itemBuilder: (context, index) {
-                    final item = allData[index];
-                    return CsCard(props: item);
-                  },
-                ));
+            if ((snapshot.data as List).isNotEmpty) {
+              return Obx(() => ListView.builder(
+                    itemCount: getAllData.length,
+                    itemBuilder: (context, index) {
+                      final item = getAllData[index];
+                      return CsCard(props: item);
+                    },
+                  ));
+            } else {
+              return const Center(
+                child: Text('No Data'),
+              );
+            }
           }
         },
       ),
@@ -67,13 +72,19 @@ Widget _buildBody(RxList<Users> allData, RxList<Users> sortDataByLikes,
               child: CircularProgressIndicator(),
             );
           } else {
-            return Obx(() => ListView.builder(
-                  itemCount: sortDataByLikes.length,
-                  itemBuilder: (context, index) {
-                    final item = sortDataByLikes[index];
-                    return CsCard(props: item);
-                  },
-                ));
+            if ((snapshot.data as List).isNotEmpty) {
+              return Obx(() => ListView.builder(
+                    itemCount: getDataByLikes.length,
+                    itemBuilder: (context, index) {
+                      final item = getDataByLikes[index];
+                      return CsCard(props: item);
+                    },
+                  ));
+            } else {
+              return const Center(
+                child: Text('No Data'),
+              );
+            }
           }
         },
       )

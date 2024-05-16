@@ -1,7 +1,22 @@
+// ignore_for_file: unused_field
+
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class PostController extends GetxController {
-  static PostController get to => Get.find<PostController>();
+  final ImagePicker _picker = ImagePicker();
+  XFile? _image;
+
+  Future<void> pickImage() async {
+    try {
+      _image = await _picker.pickImage(source: ImageSource.gallery);
+      if (_image == null) {
+        return;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   // final ImagePicker _picker = ImagePicker();
   // XFile? _image;

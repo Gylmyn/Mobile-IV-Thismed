@@ -22,7 +22,6 @@ class SignUpPage extends GetView<SignUpController> {
           key: key,
           child: SingleChildScrollView(
             child: Column(
-              // physics: const NeverScrollableScrollPhysics(),
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Gap(100),
@@ -62,23 +61,59 @@ class SignUpPage extends GetView<SignUpController> {
                       fontWeight: FontWeight.w600, fontSize: 16),
                 ),
                 const Gap(10),
-                CsFormField(
-                  placeholder: 'Enter Your Password',
-                  textValidator: 'Password cannot be empty',
-                  controller: controller.passwordC,
+                Obx(() => CsFormField(
+                      obsecureText: controller.passwordSecure.value,
+                      suffixIcon: Obx(() => IconButton(
+                            padding: const EdgeInsets.only(right: 6),
+                            icon: FaIcon(
+                              size: 20,
+                              controller.passwordSecure.value
+                                  ? FontAwesomeIcons.eye
+                                  : FontAwesomeIcons.eyeSlash,
+                              color: secondaryTextColor,
+                            ),
+                            onPressed: () {
+                              controller.passwordSecure.toggle();
+                            },
+                          )),
+                      placeholder: 'Enter Your Password',
+                      textValidator: 'Password cannot be empty',
+                      controller: controller.passwordC,
+                    )),
+                CsButton(
+                  onPressed: () => controller.generatePassword(),
+                  title: 'Generate Password',
+                  alignment: AlignmentDirectional.centerEnd,
+                  textOnly: true,
+                  textStyle: primaryTextStyle.copyWith(
+                      fontWeight: FontWeight.w600, fontSize: 16),
                 ),
-                const Gap(20),
+                // const Gap(20),
                 Text(
                   'Confirm Password',
                   style: greyTextStyle.copyWith(
                       fontWeight: FontWeight.w600, fontSize: 16),
                 ),
                 const Gap(10),
-                CsFormField(
-                  placeholder: 'Confirm Your Password',
-                  textValidator: 'Password cannot be empty',
-                  controller: controller.confirmPasswordC,
-                ),
+                Obx(() => CsFormField(
+                      obsecureText: controller.confirmPasswordSecure.value,
+                      suffixIcon: Obx(() => IconButton(
+                            padding: const EdgeInsets.only(right: 6),
+                            icon: FaIcon(
+                              size: 20,
+                              controller.confirmPasswordSecure.value
+                                  ? FontAwesomeIcons.eye
+                                  : FontAwesomeIcons.eyeSlash,
+                              color: secondaryTextColor,
+                            ),
+                            onPressed: () {
+                              controller.confirmPasswordSecure.toggle();
+                            },
+                          )),
+                      placeholder: 'Confirm Your Password',
+                      textValidator: 'Password cannot be empty',
+                      controller: controller.confirmPasswordC,
+                    )),
                 const Gap(38),
                 CsButton(
                   title: 'Sign Up',
@@ -87,7 +122,6 @@ class SignUpPage extends GetView<SignUpController> {
                       fontWeight: FontWeight.w600, fontSize: 20),
                   onPressed: () {
                     if (key.currentState!.validate()) {
-                      // controller.checkPassword();
                       controller.registerUser();
                     }
                   },

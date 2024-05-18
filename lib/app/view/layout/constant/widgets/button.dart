@@ -13,6 +13,7 @@ class CsButton extends StatelessWidget {
       this.useIcon = false,
       this.useBorder = false,
       this.textOnly = false,
+      this.alignment,
       this.icon});
   final String title;
   final Color? bgColor;
@@ -23,14 +24,19 @@ class CsButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final bool textOnly;
   final TextStyle? textStyle;
+  final AlignmentGeometry? alignment;
 
   @override
   Widget build(BuildContext context) {
     return textOnly
-        ? TextButton(
-            onPressed: onPressed,
-            child: Center(
-              child: Text(title, style: textStyle),
+        ? Align(
+            alignment: alignment ?? Alignment.center,
+            child: TextButton(
+              onPressed: onPressed,
+              child: Text(
+                title,
+                style: textStyle,
+              ),
             ),
           )
         : SizedBox(

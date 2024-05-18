@@ -50,11 +50,25 @@ class SignInPage extends GetView<SignInController> {
                         fontWeight: FontWeight.w600, fontSize: 16),
                   ),
                   const Gap(10),
-                  CsFormField(
-                    placeholder: 'Enter Your Password',
-                    textValidator: 'Password cannot be empty',
-                    controller: controller.passwordC,
-                  ),
+                  Obx(() => CsFormField(
+                        obsecureText: controller.passwordSecure.value,
+                        suffixIcon: Obx(() => IconButton(
+                              padding: const EdgeInsets.only(right: 6),
+                              icon: FaIcon(
+                                size: 20,
+                                controller.passwordSecure.value
+                                    ? FontAwesomeIcons.eye
+                                    : FontAwesomeIcons.eyeSlash,
+                                color: secondaryTextColor,
+                              ),
+                              onPressed: () {
+                                controller.passwordSecure.toggle();
+                              },
+                            )),
+                        placeholder: 'Enter Your Password',
+                        textValidator: 'Password cannot be empty',
+                        controller: controller.passwordC,
+                      )),
                   const Gap(38),
                   CsButton(
                     title: 'Sign In',

@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thismed_app/app/data/services/services.dart';
@@ -9,6 +10,12 @@ class SignUpController extends GetxController {
   final TextEditingController emailC = TextEditingController();
   final TextEditingController passwordC = TextEditingController();
   final TextEditingController confirmPasswordC = TextEditingController();
+  final RxBool passwordSecure = true.obs;
+  final RxBool confirmPasswordSecure = true.obs;
+  final random = Random();
+  final String characters =
+      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890|!@#\$%^&*()_+';
+  final RxString password = ''.obs;
 
   @override
   void onClose() {
@@ -21,6 +28,12 @@ class SignUpController extends GetxController {
     confirmPasswordC.clear();
     confirmPasswordC.dispose();
     super.onClose();
+  }
+
+  void generatePassword() {
+    final String result = password.value = List.generate(
+        12, (index) => characters[random.nextInt(characters.length)]).join();
+    passwordC.text = result;
   }
 
   Future<void> registerUser() async {

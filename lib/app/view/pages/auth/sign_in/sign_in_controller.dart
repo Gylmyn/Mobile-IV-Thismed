@@ -7,6 +7,7 @@ import 'package:thismed_app/app/view/layout/routes/routes_name.dart';
 class SignInController extends GetxController {
   final TextEditingController emailC = TextEditingController();
   final TextEditingController passwordC = TextEditingController();
+  final RxBool passwordSecure = true.obs;
 
   @override
   void onClose() {
